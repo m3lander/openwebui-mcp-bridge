@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  mcp-bridge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mcp-bridge
+    environment:
+      - MCP_BRIDGE__INFERENCE_SERVER__URL=http://ollama:11434/v1
+      - MCP_BRIDGE__CONFIG__FILE=config.json
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./config.json:/app/config.json
+    networks:
+      - mcp_network
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    networks:
+      - mcp_network
+
+volumes:
+  ollama_data:
+
+networks:
+  mcp_network:
+    driver: bridge
