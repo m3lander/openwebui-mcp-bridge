@@ -1,0 +1,14 @@
+{
+  "inference_server": {
+    "url": "http://ollama:11434/v1",
+    "model": "mistral"
+  },
+  "mcp": {
+    "tools": {
+      "server_filesystem": {
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-filesystem"]
+      }
+    }
+  }
+}
